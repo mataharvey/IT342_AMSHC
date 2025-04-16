@@ -27,25 +27,35 @@ public class AuthController {
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody User user) {
-        // hash password before saving
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String rawPassword = user.getPassword();  // before encoding
+        String encodedPassword = passwordEncoder.encode(rawPassword);
+        System.out.println("👉 Raw password: " + rawPassword);
+        System.out.println("🔐 Encoded password: " + encodedPassword);
+
+        user.setPassword(encodedPassword);
         authService.register(user);
         return new AuthResponse("Registration successful");
     }
 
+
+
+
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        // Authenticate the user
+        System.out.println("🔥 LOGIN CALLED with email: " + request.getEmail());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
+        System.out.println("✅ Authenticated: " + authentication.isAuthenticated());
+
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // Get authenticated user and generate token with roles
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String token = jwtUtil.generateToken(userDetails);
 
         return new LoginResponse(token, userDetails.getRole(), userDetails.getUserId());
     }
+
 }

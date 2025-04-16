@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -14,16 +15,20 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String specialization;
+    private String name; // Full name of the doctor (e.g., "Mark Reyes")
+
     private String gender;
 
-    @Column(name = "experience")
-    private int experience;
+    private String specialization;
 
-
+    @Column(name = "years_of_experience", nullable = false)
+    private int yearsOfExperience;
 
     @ManyToOne
-    @JoinColumn(name = "hospital_id", nullable = false)
-    private Hospital hospital;
+    @JoinColumn(name = "clinic")
+    private Clinic clinic;
+
+    public String getName() {
+        return name;
+    }
 }

@@ -47,8 +47,9 @@ public class AuthService {
     }
 
     // 📝 REGISTER method: encode password and save user
-    public User register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public void register(User user) {
+        userRepository.save(user);
     }
+
+
 }

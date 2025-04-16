@@ -6,7 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,26 +17,15 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String patientName;
-    private String contactNumber;
-
     @ManyToOne
     private Doctor doctor;
 
     @ManyToOne
     private User patient;
 
-    private LocalDateTime appointmentStartTime;
-    private LocalDateTime appointmentEndTime;
+    private LocalDateTime appointmentStart;
+    private LocalDateTime appointmentEnd;
 
-    private String status; // PENDING, CONFIRMED, CANCELLED
 
-    public static User createUserWithId(Long id) {
-        return User.builder().id(id).build();
-    }
-
-    public static Doctor createDoctorWithId(Long id) {
-        return Doctor.builder().id(id).build();
-    }
-
+    private String status;
 }

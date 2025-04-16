@@ -1,9 +1,11 @@
 package com.example.appointmentsystem.controller;
 
-import com.example.appointmentsystem.dto.BookingRequest;
+import com.example.appointmentsystem.dto.AppointmentRequestDTO;
 import com.example.appointmentsystem.model.Appointment;
 import com.example.appointmentsystem.service.AppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,22 +18,30 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping("/book")
-    public Appointment book(@RequestBody BookingRequest request) {
-        return appointmentService.bookAppointment(request);
+    public ResponseEntity<Appointment> bookAppointment(@RequestBody AppointmentRequestDTO dto) {
+        Appointment appointment = appointmentService.bookAppointment(dto);
+        return ResponseEntity.ok(appointment);
+    }
+
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<String> cancelAppointment(@PathVariable Long id) {
+        appointmentService.cancelAppointment(id);
+        return ResponseEntity.ok("Appointment cancelled successfully");
     }
 
     @GetMapping("/patient/{id}")
-    public List<Appointment> getByPatient(@PathVariable Long id) {
-        return appointmentService.getByPatientId(id);
+    public ResponseEntity<List<Appointment>> getByPatient(@PathVariable Long id) {
+        return ResponseEntity.ok(appointmentService.getAppointmentsByPatient(id));
     }
 
     @GetMapping("/doctor/{id}")
-    public List<Appointment> getByDoctor(@PathVariable Long id) {
-        return appointmentService.getByDoctorId(id);
+    public ResponseEntity<List<Appointment>> getByDoctor(@PathVariable Long id) {
+        return ResponseEntity.ok(appointmentService.getAppointmentsByDoctor(id));
     }
 
-    @DeleteMapping("/{id}")
-    public void cancel(@PathVariable Long id) {
-        appointmentService.cancelAppointment(id);
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<Appointment>> getAllAppointments() {
+        return ResponseEntity.ok(appointmentService.getAllAppointments());
     }
 }

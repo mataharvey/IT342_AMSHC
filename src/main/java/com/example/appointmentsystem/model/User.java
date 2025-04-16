@@ -14,8 +14,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fullName;
+    private String fullName; // Full name of the patient/user
+
     private String email;
+
     private String password;
-    private String role;
+
+    private String role; // "PATIENT", "ADMIN", etc.
+
+    public String getFullName() {
+        return fullName;
+    }
 }

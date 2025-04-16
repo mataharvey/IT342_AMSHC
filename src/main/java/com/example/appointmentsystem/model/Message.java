@@ -17,7 +17,16 @@ public class Message {
     private Long id;
 
     private Long senderId;
+
     private Long receiverId;
+
+    private String senderRole; // "DOCTOR" or "PATIENT"
+
     private String content;
+
     private LocalDateTime timestamp;
+
+    @Column(nullable = false)
+    private boolean isRead = false;
+
 }

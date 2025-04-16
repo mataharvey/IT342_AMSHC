@@ -10,7 +10,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByPatientId(Long patientId);
     List<Appointment> findByDoctorId(Long doctorId);
 
-    boolean existsByDoctorIdAndAppointmentStartTimeLessThanEqualAndAppointmentEndTimeGreaterThanEqual(
-            Long doctorId, LocalDateTime endTime, LocalDateTime startTime
+
+
+    boolean existsByDoctorIdAndAppointmentStartLessThanEqualAndAppointmentEndGreaterThanEqual(
+            Long doctorId,
+            LocalDateTime appointmentEnd,
+            LocalDateTime appointmentStart
     );
+
+
+
 }
