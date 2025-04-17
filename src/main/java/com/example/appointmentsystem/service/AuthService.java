@@ -2,8 +2,8 @@ package com.example.appointmentsystem.service;
 
 import com.example.appointmentsystem.dto.LoginRequest;
 import com.example.appointmentsystem.dto.LoginResponse;
-import com.example.appointmentsystem.model.User;
-import com.example.appointmentsystem.repository.UserRepository;
+import com.example.appointmentsystem.model.AppUser;
+import com.example.appointmentsystem.repository.AppUserRepository;
 import com.example.appointmentsystem.security.JwtUtil;
 import com.example.appointmentsystem.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +19,9 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // 🔐 LOGIN method using AuthenticationManager + JWT
     public LoginResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -31,25 +30,17 @@ public class AuthService {
                 )
         );
 
-        // ✅ Principal is our CustomUserDetails
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-
-        // Generate token using email (as username)
         String token = jwtUtil.generateToken(userDetails);
 
-
-        // Return token, role, and userId in LoginResponse
         return new LoginResponse(
                 token,
-                userDetails.getUser().getRole(),
-                userDetails.getUser().getId()
+                userDetails.getAppUser().getRole(),
+                userDetails.getAppUser().getId()
         );
     }
 
-    // 📝 REGISTER method: encode password and save user
-    public void register(User user) {
-        userRepository.save(user);
+    public void register(AppUser appUser) {
+        appUserRepository.save(appUser);
     }
-
-
 }

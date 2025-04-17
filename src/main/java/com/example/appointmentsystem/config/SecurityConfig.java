@@ -36,18 +36,23 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/doctors/**").permitAll()
                         .requestMatchers("/api/appointments/book").permitAll()
 
-                        // ✅ Appointments
+                        // ✅ Appointment role-based access
                         .requestMatchers("/api/appointments/patient/**").hasAnyRole("PATIENT", "ADMIN")
                         .requestMatchers("/api/appointments/doctor/**").hasAnyRole("DOCTOR", "ADMIN")
-                        .requestMatchers("/api/appointments/**").hasRole("ADMIN") // Covers GET + DELETE + others
+                        .requestMatchers("/api/appointments/**").hasRole("ADMIN")
 
-                        // ✅ Doctors and Clinics (Admin-only for POST/PUT/DELETE)
-                        .requestMatchers(HttpMethod.GET, "/api/doctors/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/clinics/**").permitAll()
-                        .requestMatchers("/api/doctors/**").hasRole("ADMIN")
-                        .requestMatchers("/api/clinics/**").hasRole("ADMIN")
+                        // ✅ Admin-only for non-GET doctor/clinic operations
+                        .requestMatchers(HttpMethod.POST, "/api/doctors/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/doctors/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/doctors/**").hasRole("ADMIN")
 
-                        // ✅ Default rule for all other endpoints
+                        .requestMatchers(HttpMethod.POST, "/api/clinics/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/clinics/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/clinics/**").hasRole("ADMIN")
+
+
+
+                        // ✅ Fallback for any other endpoint
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -55,6 +60,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,11 +19,13 @@ public class ClinicController {
 
     private final ClinicService clinicService;
 
+    // ✅ ADD a new clinic
     @PostMapping("/add")
     public ResponseEntity<Clinic> addClinic(@RequestBody ClinicDTO dto) {
         return ResponseEntity.ok(clinicService.addClinic(dto));
     }
 
+    // ✅ GET all clinics with pagination
     @GetMapping
     public ResponseEntity<Page<Clinic>> getAllClinics(
             @RequestParam(defaultValue = "0") int page,
@@ -32,22 +35,27 @@ public class ClinicController {
         return ResponseEntity.ok(clinicService.getAllClinics(pageable));
     }
 
+    // ✅ GET clinic by ID
     @GetMapping("/{id}")
     public ResponseEntity<Clinic> getClinicById(@PathVariable Long id) {
         return ResponseEntity.ok(clinicService.getClinicById(id));
     }
 
+    // ✅ UPDATE clinic by ID
     @PutMapping("/update/{id}")
     public ResponseEntity<Clinic> updateClinic(@PathVariable Long id, @RequestBody ClinicDTO dto) {
         return ResponseEntity.ok(clinicService.updateClinic(id, dto));
     }
 
-    @DeleteMapping("/delete/{id}")
+    // ✅ DELETE clinic + cascade delete doctors, appointments, messages
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClinic(@PathVariable Long id) {
         clinicService.deleteClinic(id);
-        return ResponseEntity.ok("Clinic deleted successfully");
+        return ResponseEntity.ok("Clinic and related data deleted successfully");
     }
 
+    // ✅ SEARCH clinics by name/address
     @GetMapping("/search")
     public ResponseEntity<Page<ClinicDTO>> searchClinics(
             @RequestParam String keyword,

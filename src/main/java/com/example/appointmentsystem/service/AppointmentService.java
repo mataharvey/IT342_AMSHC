@@ -4,10 +4,10 @@ import com.example.appointmentsystem.dto.AppointmentRequestDTO;
 import com.example.appointmentsystem.model.Appointment;
 import com.example.appointmentsystem.model.Doctor;
 import com.example.appointmentsystem.model.NotificationType;
-import com.example.appointmentsystem.model.User;
+import com.example.appointmentsystem.model.AppUser;
 import com.example.appointmentsystem.repository.AppointmentRepository;
 import com.example.appointmentsystem.repository.DoctorRepository;
-import com.example.appointmentsystem.repository.UserRepository;
+import com.example.appointmentsystem.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +22,13 @@ public class AppointmentService {
     private final NotificationService notificationService;
     private final AppointmentRepository appointmentRepository;
     private final DoctorRepository doctorRepository;
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
 
     public Appointment bookAppointment(AppointmentRequestDTO dto) {
         Doctor doctor = doctorRepository.findById(dto.getDoctorId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
-        User patient = userRepository.findById(dto.getPatientId())
+        AppUser patient = appUserRepository.findById(dto.getPatientId())
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
 
         boolean isOverlapping = appointmentRepository
@@ -76,7 +76,7 @@ public class AppointmentService {
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
         Doctor doctor = appointment.getDoctor();
-        User patient = appointment.getPatient();
+        AppUser patient = appointment.getPatient();
         LocalDateTime startTime = appointment.getAppointmentStart();
 
         appointment.setStatus("CANCELLED");

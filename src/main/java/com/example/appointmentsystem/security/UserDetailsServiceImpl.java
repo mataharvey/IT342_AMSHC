@@ -1,7 +1,6 @@
 package com.example.appointmentsystem.security;
 
-import com.example.appointmentsystem.model.User;
-import com.example.appointmentsystem.repository.UserRepository;
+import com.example.appointmentsystem.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,17 +11,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("🔍 Attempting to load user with email: " + email);
-
-        return userRepository.findByEmail(email)
+        return appUserRepository.findByEmail(email)
                 .map(CustomUserDetails::new)
-                .orElseThrow(() -> {
-                    System.out.println("❌ No user found with email: " + email);
-                    return new UsernameNotFoundException("User not found with email: " + email);
-                });
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 }

@@ -21,7 +21,7 @@ public class Appointment {
     private Doctor doctor;
 
     @ManyToOne
-    private User patient;
+    private AppUser patient;
 
     private LocalDateTime appointmentStart;
     private LocalDateTime appointmentEnd;

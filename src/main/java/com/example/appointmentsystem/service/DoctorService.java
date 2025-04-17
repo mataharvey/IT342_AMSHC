@@ -2,10 +2,14 @@ package com.example.appointmentsystem.service;
 
 import com.example.appointmentsystem.dto.DoctorRequestDTO;
 import com.example.appointmentsystem.dto.DoctorResponseDTO;
+import com.example.appointmentsystem.model.Appointment;
 import com.example.appointmentsystem.model.Clinic;
 import com.example.appointmentsystem.model.Doctor;
+import com.example.appointmentsystem.repository.AppointmentRepository;
 import com.example.appointmentsystem.repository.ClinicRepository;
 import com.example.appointmentsystem.repository.DoctorRepository;
+import com.example.appointmentsystem.repository.MessageRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ public class DoctorService {
 
     private final DoctorRepository doctorRepository;
     private final ClinicRepository clinicRepository;
+    private final AppointmentRepository appointmentRepository;
+    private final MessageRepository messageRepository;
 
     public List<DoctorResponseDTO> getAllDoctors() {
         return doctorRepository.findAll().stream()
@@ -61,8 +67,20 @@ public class DoctorService {
         return convertToDTO(doctorRepository.save(doctor));
     }
 
+    @Transactional
     public void deleteDoctor(Long doctorId) {
-        doctorRepository.deleteById(doctorId);
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+
+        // 1. Delete appointments linked to the doctor
+        List<Appointment> appointments = appointmentRepository.findByDoctorId(doctorId);
+        appointmentRepository.deleteAll(appointments);
+
+        // 2. Delete messages sent or received by the doctor
+        messageRepository.deleteBySenderIdOrReceiverId(doctorId, doctorId);
+
+        // 3. Delete the doctor
+        doctorRepository.delete(doctor);
     }
 
     private DoctorResponseDTO convertToDTO(Doctor doctor) {

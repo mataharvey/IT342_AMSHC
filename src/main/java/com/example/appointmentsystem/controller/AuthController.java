@@ -3,7 +3,7 @@ package com.example.appointmentsystem.controller;
 import com.example.appointmentsystem.dto.AuthResponse;
 import com.example.appointmentsystem.dto.LoginRequest;
 import com.example.appointmentsystem.dto.LoginResponse;
-import com.example.appointmentsystem.model.User;
+import com.example.appointmentsystem.model.AppUser;
 import com.example.appointmentsystem.security.CustomUserDetails;
 import com.example.appointmentsystem.security.JwtUtil;
 import com.example.appointmentsystem.service.AuthService;
@@ -26,36 +26,28 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody User user) {
-        String rawPassword = user.getPassword();  // before encoding
+    public AuthResponse register(@RequestBody AppUser appUser) {
+        String rawPassword = appUser.getPassword();
         String encodedPassword = passwordEncoder.encode(rawPassword);
+
         System.out.println("👉 Raw password: " + rawPassword);
         System.out.println("🔐 Encoded password: " + encodedPassword);
 
-        user.setPassword(encodedPassword);
-        authService.register(user);
+        appUser.setPassword(encodedPassword);
+        authService.register(appUser);
         return new AuthResponse("Registration successful");
     }
 
-
-
-
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        System.out.println("🔥 LOGIN CALLED with email: " + request.getEmail());
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
 
-        System.out.println("✅ Authenticated: " + authentication.isAuthenticated());
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         String token = jwtUtil.generateToken(userDetails);
 
         return new LoginResponse(token, userDetails.getRole(), userDetails.getUserId());
     }
-
 }

@@ -2,13 +2,13 @@ package com.example.appointmentsystem.service;
 
 import com.example.appointmentsystem.dto.MessageDTO;
 import com.example.appointmentsystem.dto.MessageRequestDTO;
+import com.example.appointmentsystem.model.AppUser;
 import com.example.appointmentsystem.model.Doctor;
 import com.example.appointmentsystem.model.Message;
 import com.example.appointmentsystem.model.NotificationType;
-import com.example.appointmentsystem.model.User;
 import com.example.appointmentsystem.repository.DoctorRepository;
 import com.example.appointmentsystem.repository.MessageRepository;
-import com.example.appointmentsystem.repository.UserRepository;
+import com.example.appointmentsystem.repository.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final DoctorRepository doctorRepository;
-    private final UserRepository userRepository;
+    private final AppUserRepository appUserRepository;
     private final NotificationService notificationService;
 
 
@@ -86,9 +86,23 @@ public class MessageService {
                     .map(name -> "Dr. " + name)
                     .orElse("Unknown Doctor");
         } else {
-            return userRepository.findById(id)
-                    .map(User::getFullName)
+            return appUserRepository.findById(id)
+                    .map(AppUser::getFullName)
                     .orElse("Unknown Patient");
         }
     }
+
+    public void deleteMessage(Long messageId, Long userId) {
+        Message message = messageRepository.findById(messageId)
+                .orElseThrow(() -> new RuntimeException("Message not found"));
+
+        // Allow only the sender or receiver to delete the message
+        if (!message.getSenderId().equals(userId) && !message.getReceiverId().equals(userId)) {
+            throw new RuntimeException("You are not authorized to delete this message.");
+        }
+
+        messageRepository.deleteById(messageId);
+    }
+
+
 }

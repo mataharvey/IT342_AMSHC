@@ -52,4 +52,15 @@ public class MessageController {
         messageService.markMessagesAsRead(receiverId, senderId);
         return ResponseEntity.ok("Messages marked as read.");
     }
+
+    @DeleteMapping("/delete/{messageId}")
+    public ResponseEntity<String> deleteMessage(
+            @PathVariable Long messageId,
+            @RequestParam Long userId
+    ) {
+        messageService.deleteMessage(messageId, userId);
+        return ResponseEntity.ok("Message deleted successfully.");
+    }
+
+
 }
