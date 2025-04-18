@@ -31,11 +31,12 @@ public class DoctorService {
                 .collect(Collectors.toList());
     }
 
-    public List<DoctorResponseDTO> getDoctorsByClinic(String clinicName) {
-        return doctorRepository.findByClinic_Name(clinicName).stream()
+    public List<DoctorResponseDTO> getDoctorsByClinic(Long clinicId) {
+        return doctorRepository.findByClinicId(clinicId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
 
     public DoctorResponseDTO addDoctor(DoctorRequestDTO dto) {
         Clinic clinic = clinicRepository.findById(dto.getClinicId())

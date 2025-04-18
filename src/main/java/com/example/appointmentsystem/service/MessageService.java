@@ -26,12 +26,19 @@ public class MessageService {
     private final AppUserRepository appUserRepository;
     private final NotificationService notificationService;
 
-
     public Message sendMessage(MessageRequestDTO dto) {
+        // Fallback in case role is not provided
+        String senderRole = dto.getSenderRole();
+        if (senderRole == null || senderRole.isBlank()) {
+            senderRole = appUserRepository.findById(dto.getSenderId())
+                    .map(AppUser::getRole)
+                    .orElse("UNKNOWN");
+        }
+
         Message message = Message.builder()
                 .senderId(dto.getSenderId())
                 .receiverId(dto.getReceiverId())
-                .senderRole(dto.getSenderRole())
+                .senderRole(senderRole)
                 .content(dto.getContent())
                 .timestamp(LocalDateTime.now())
                 .isRead(false)
@@ -40,7 +47,7 @@ public class MessageService {
         Message savedMessage = messageRepository.save(message);
 
         // 🔔 Auto-create notification for the receiver
-        String content = "You have a new message from " + dto.getSenderRole();
+        String content = "You have a new message from " + senderRole;
         notificationService.createNotification(
                 dto.getReceiverId(),
                 content,
@@ -50,13 +57,16 @@ public class MessageService {
         return savedMessage;
     }
 
-
     public Page<MessageDTO> getConversation(Long user1, Long user2, Pageable pageable) {
         Page<Message> messages = messageRepository.findConversation(user1, user2, pageable);
 
         return messages.map(message -> {
             String senderName = getNameById(message.getSenderId(), message.getSenderRole());
-            String receiverRole = message.getSenderRole().equalsIgnoreCase("PATIENT") ? "DOCTOR" : "PATIENT";
+            String receiverRole = "PATIENT";
+            if ("PATIENT".equalsIgnoreCase(message.getSenderRole())) {
+                receiverRole = "DOCTOR";
+            }
+
             String receiverName = getNameById(message.getReceiverId(), receiverRole);
 
             return new MessageDTO(
@@ -80,16 +90,22 @@ public class MessageService {
     }
 
     private String getNameById(Long id, String role) {
+        if (role == null) {
+            return "Unknown User";
+        }
+
         if (role.equalsIgnoreCase("DOCTOR")) {
             return doctorRepository.findById(id)
                     .map(Doctor::getName)
                     .map(name -> "Dr. " + name)
                     .orElse("Unknown Doctor");
-        } else {
+        } else if (role.equalsIgnoreCase("PATIENT")) {
             return appUserRepository.findById(id)
                     .map(AppUser::getFullName)
                     .orElse("Unknown Patient");
         }
+
+        return "Unknown Role";
     }
 
     public void deleteMessage(Long messageId, Long userId) {
@@ -103,6 +119,4 @@ public class MessageService {
 
         messageRepository.deleteById(messageId);
     }
-
-
 }

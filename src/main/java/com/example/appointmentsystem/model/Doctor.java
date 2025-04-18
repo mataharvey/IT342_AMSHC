@@ -15,7 +15,7 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // Full name of the doctor (e.g., "Mark Reyes")
+    private String name;
 
     private String gender;
 
@@ -25,10 +25,10 @@ public class Doctor {
     private int yearsOfExperience;
 
     @ManyToOne
-    @JoinColumn(name = "clinic")
+    @JoinColumn(name = "clinic") // Not "clinic_id"
     private Clinic clinic;
 
-    public String getName() {
-        return name;
-    }
+
+
+
 }
