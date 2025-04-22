@@ -1,104 +1,150 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ArrowLeft } from 'react-feather';
 
 function Register() {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('PATIENT');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(''); // Error message for validation
-  const [loading, setLoading] = useState(false); // Loading state to show a loading indicator
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate password and confirm password match
     if (password !== confirmPassword) {
-      setError('Passwords do not match!');
+      setError('⚠ Passwords do not match.');
       return;
     }
 
-    // Show loading indicator while waiting for the API call
     setLoading(true);
+    setError('');
 
     try {
-      // Make an API call to register the user
       const response = await axios.post('http://localhost:8080/api/auth/register', {
-        email: email,
-        password: password,
+        fullName,
+        email,
+        password,
+        role
       });
 
-      // Handle successful registration
-      console.log('User registered successfully:', response.data);
-
-      // After successful registration, redirect to the login page
-      navigate('/login'); // Navigate to the login page
+      console.log('✅ Registered:', response.data);
+      navigate('/login');
     } catch (err) {
-      // Handle errors from the API (e.g., username already taken or server error)
-      setError('An error occurred while registering.');
-      console.error('Registration error:', err);
+      setError('⚠ Registration failed. Try a different email.');
+      console.error('Error:', err);
     } finally {
-      // Hide the loading indicator after the API call finishes
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-blue-800">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-center text-3xl text-blue-800 font-semibold mb-6">Register</h2>
-        {error && <div className="text-red-600 mb-4">{error}</div>} {/* Error display */}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-700 px-4">
+      <div className="relative bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-blue-800">Email</label>
+        {/* 🔙 Back to Home */}
+        <button
+          onClick={() => navigate('/')}
+          className="absolute top-4 left-4 text-blue-700 hover:text-blue-900"
+        >
+          <ArrowLeft size={20} />
+        </button>
+
+        <h2 className="text-3xl font-bold text-blue-800 text-center mb-6">Create Account</h2>
+
+        {error && <div className="bg-red-100 text-red-700 text-sm p-2 mb-4 rounded">{error}</div>}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Full Name */}
+          <div>
+            <label htmlFor="fullName" className="block text-blue-800 font-medium">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label htmlFor="email" className="block text-blue-800 font-medium">Email</label>
             <input
               type="email"
               id="email"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-blue-800">Password</label>
+
+          {/* Role */}
+          <div>
+            <label htmlFor="role" className="block text-blue-800 font-medium">Register As</label>
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            >
+              <option value="PATIENT">Patient</option>
+              <option value="DOCTOR">Doctor</option>
+            </select>
+          </div>
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className="block text-blue-800 font-medium">Password</label>
             <input
               type="password"
               id="password"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-blue-800">Confirm Password</label>
+
+          {/* Confirm Password */}
+          <div>
+            <label htmlFor="confirmPassword" className="block text-blue-800 font-medium">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
+
+          {/* Submit */}
           <button
             type="submit"
-            className="w-full py-2 bg-blue-800 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+            className="w-full bg-blue-800 text-white py-2 rounded font-semibold hover:bg-blue-700 transition"
             disabled={loading}
           >
-            {loading ? 'Registering...' : 'Create Account'}
+            {loading ? 'Creating Account...' : 'Sign Up'}
           </button>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-sm text-blue-800">
-            Already have an account?
-            <a href="/login" className="text-blue-500 hover:underline">Login</a>
-          </p>
-        </div>
+        <p className="text-sm text-blue-800 mt-4 text-center">
+          Already have an account?{' '}
+          <span
+            className="text-blue-500 hover:underline cursor-pointer"
+            onClick={() => navigate('/login')}
+          >
+            Log In
+          </span>
+        </p>
       </div>
     </div>
   );
