@@ -2,8 +2,10 @@ package com.example.appointmentsystem.controller;
 
 import com.example.appointmentsystem.dto.AuthResponse;
 import com.example.appointmentsystem.dto.DoctorRegisterRequest;
+import com.example.appointmentsystem.dto.ForgotPasswordRequest;
 import com.example.appointmentsystem.dto.LoginRequest;
 import com.example.appointmentsystem.dto.LoginResponse;
+import com.example.appointmentsystem.dto.ResetPasswordRequest;
 import com.example.appointmentsystem.model.AppUser;
 import com.example.appointmentsystem.model.Clinic;
 import com.example.appointmentsystem.model.Doctor;
@@ -14,6 +16,8 @@ import com.example.appointmentsystem.security.CustomUserDetails;
 import com.example.appointmentsystem.security.JwtUtil;
 import com.example.appointmentsystem.service.AuthService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -83,4 +87,19 @@ public class AuthController {
 
         return ResponseEntity.ok("Doctor registered successfully.");
     }
+
+    @PostMapping("/forgot-password")
+public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+    authService.sendResetCode(request.getEmail());
+    return ResponseEntity.ok("Reset code sent.");
+}
+
+@PostMapping("/reset-password")
+public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+    boolean success = authService.resetPassword(request.getEmail(), request.getCode(), request.getNewPassword());
+    return success
+        ? ResponseEntity.ok("Password reset successful.")
+        : ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid code.");
+}
+
 }

@@ -22,4 +22,9 @@ public class AppUser {
     private String password;
 
     private String role;
+
+    // AppUser.java
+@Column(name = "reset_code")
+private String resetCode;
+
 }
