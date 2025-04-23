@@ -40,7 +40,7 @@ function TopNav() {
 
         <Link to="/hospital-city-creator" className="flex flex-col items-center text-white">
           <FaCity size={30} />
-          <span className="text-sm">Hospital & City</span>
+          <span className="text-sm">Clinics</span>
         </Link>
 
         <Link to="/booking-history" className="flex flex-col items-center text-white">
