@@ -10,12 +10,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_screen_page)
+        setContentView(R.layout.login_screen_page)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, WelcomeActivity::class.java)
-            startActivity(intent)
-            finish()
-        }, 5000)
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            val intent = Intent(this, WelcomeActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }, 5000)
     }
 }

@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="430dp"
+    android:layout_height="800dp"
+    android:background="#FFFFFF"
+    android:clipToPadding="false"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/newAccountText"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="-10dp"
+        android:gravity="center"
+        android:text="New Account"
+        android:textColor="#2260FF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fullNameText"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="113dp"
+        android:layout_marginEnd="124dp"
+        android:gravity="center_vertical"
+        android:text="Full name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/fullNameInput"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/fullNameText"
+        android:layout_alignEnd="@+id/fullNameText"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="139dp"
+        android:layout_marginEnd="-83dp"
+        android:background="#ECF1FF"
+        android:backgroundTint="#ECF1FF"
+        android:backgroundTintMode="multiply" />
+
+    <!-- Password -->
+
+    <TextView
+        android:id="@+id/fullNamePlaceholder"
+        android:layout_width="277dp"
+        android:layout_height="36dp"
+        android:layout_alignStart="@+id/fullNameInput"
+        android:layout_alignEnd="@+id/fullNameInput"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="145dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text="example@example.com"
+        android:textColor="#809CFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/passwordText"
+        android:layout_width="215dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="125dp"
+        android:gravity="center_vertical"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Password Input -->
+    <View
+        android:id="@+id/passwordInput"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/passwordText"
+        android:layout_alignEnd="@+id/passwordText"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="-84dp"
+        android:background="#ECF1FF"
+        android:backgroundTint="#ECF1FF"
+        android:backgroundTintMode="multiply" />
+
+    <ImageView
+        android:id="@+id/passwordIcon"
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="316dp"
+        android:layout_marginTop="242dp" />
+
+    <!-- Email -->
+
+    <TextView
+        android:id="@+id/passwordPlaceholder"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordInput"
+        android:layout_alignEnd="@+id/passwordInput"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="237dp"
+        android:layout_marginEnd="147dp"
+        android:gravity="center_vertical"
+        android:text="*************"
+        android:textColor="#809CFF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/emailText"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="291dp"
+        android:layout_marginEnd="154dp"
+        android:gravity="center_vertical"
+        android:text="Email"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Email Input -->
+    <View
+        android:id="@+id/emailInput"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/emailText"
+        android:layout_alignEnd="@+id/emailText"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginEnd="-113dp"
+        android:background="#ECF1FF"
+        android:backgroundTint="#ECF1FF"
+        android:backgroundTintMode="multiply" />
+
+    <TextView
+        android:id="@+id/emailPlaceholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/emailInput"
+        android:layout_alignEnd="@+id/emailInput"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="325dp"
+        android:layout_marginEnd="70dp"
+        android:gravity="center_vertical"
+        android:text="example@example.com"
+        android:textColor="#809CFF"
+        android:textSize="20sp" />
+
+    <!-- Mobile Number -->
+    <TextView
+        android:id="@+id/mobileNumberText"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginEnd="124dp"
+        android:gravity="center_vertical"
+        android:text="Mobile Number"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Mobile Number Input -->
+    <View
+        android:id="@+id/mobileNumberInput"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:layout_alignEnd="@+id/mobileNumberText"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="406dp"
+        android:layout_marginEnd="-83dp"
+        android:background="#ECF1FF"
+        android:backgroundTint="#ECF1FF"
+        android:backgroundTintMode="multiply" />
+
+    <TextView
+        android:id="@+id/mobileNumberPlaceholder"
+        android:layout_width="174dp"
+        android:layout_height="31dp"
+        android:layout_alignStart="@+id/mobileNumberInput"
+        android:layout_alignEnd="@+id/mobileNumberInput"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="415dp"
+        android:layout_marginEnd="111dp"
+        android:gravity="center_vertical"
+        android:text="09185671854"
+        android:textColor="#809CFF"
+        android:textSize="20sp" />
+
+    <!-- Date of Birth -->
+
+    <!-- Date of Birth Input -->
+
+    <TextView
+        android:id="@+id/dobText"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="468dp"
+        android:gravity="center_vertical"
+        android:text="Date Of Birth"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Terms and Privacy -->
+
+    <View
+        android:id="@+id/dobInput"
+        android:layout_width="299dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/dobText"
+        android:layout_alignEnd="@+id/dobText"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="494dp"
+        android:layout_marginEnd="-169dp"
+        android:background="#ECF1FF"
+        android:backgroundTint="#ECF1FF"
+        android:backgroundTintMode="multiply" />
+
+    <TextView
+        android:id="@+id/dobPlaceholder"
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/dobInput"
+        android:layout_alignEnd="@+id/dobInput"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="505dp"
+        android:layout_marginEnd="149dp"
+        android:gravity="center_vertical"
+        android:text="Dd / Mm /Yyy"
+        android:textColor="#2260FF"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/termsPrivacyText"
+        android:layout_width="273dp"
+        android:layout_height="28dp"
+        android:layout_alignStart="@+id/dobInput"
+        android:layout_alignEnd="@+id/dobInput"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="559dp"
+        android:layout_marginEnd="15dp"
+        android:gravity="center"
+        android:text="By continuing, you agree to \n Terms of Use and Privacy Policy."
+        android:textSize="12sp" />
+
+    <!-- Sign Up Button -->
+
+    <View
+        android:id="@+id/signUpButton"
+        android:layout_width="207dp"
+        android:layout_height="45dp"
+        android:layout_alignStart="@+id/termsPrivacyText"
+        android:layout_alignEnd="@+id/termsPrivacyText"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="591dp"
+        android:layout_marginEnd="41dp"
+        android:background="#2260FF"
+        android:backgroundTint="#2260FF"
+        android:backgroundTintMode="multiply" />
+
+    <!-- Or Sign Up With -->
+    <TextView
+        android:id="@+id/signUpText"
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="597dp"
+        android:gravity="center"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Social Icons -->
+
+    <TextView
+        android:id="@+id/orSignUpWithText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/signUpButton"
+        android:layout_alignEnd="@+id/signUpButton"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="652dp"
+        android:layout_marginEnd="36dp"
+        android:gravity="center"
+        android:text="or sign up with"
+        android:textColor="#070707"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/socialIcon1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/orSignUpWithText"
+        android:layout_alignStart="@+id/signUpText"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:background="#CAD6FF"
+        android:backgroundTint="#CAD6FF"
+        android:backgroundTintMode="multiply" />
+
+    <View
+        android:id="@+id/socialIcon2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/orSignUpWithText"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/socialIcon1"
+        android:background="#CAD6FF"
+        android:backgroundTint="#CAD6FF"
+        android:backgroundTintMode="multiply" />
+
+    <!-- Already Have an Account -->
+
+    <View
+        android:id="@+id/socialIcon3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/orSignUpWithText"
+        android:layout_alignEnd="@+id/orSignUpWithText"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="-11dp"
+        android:layout_toEndOf="@+id/socialIcon2"
+        android:background="#CAD6FF"
+        android:backgroundTint="#CAD6FF"
+        android:backgroundTintMode="multiply" />
+
+    <TextView
+        android:id="@+id/alreadyHaveAccountText"
+        android:layout_width="203dp"
+        android:layout_height="28dp"
+        android:layout_alignStart="@+id/socialIcon1"
+        android:layout_alignEnd="@+id/socialIcon3"
+        android:layout_marginStart="-62dp"
+        android:layout_marginTop="752dp"
+        android:layout_marginEnd="-70dp"
+        android:gravity="center"
+        android:text="already have an account? Log in"
+        android:textSize="12sp" />
+
+</RelativeLayout>

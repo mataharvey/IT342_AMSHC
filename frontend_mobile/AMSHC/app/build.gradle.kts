@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -36,6 +37,11 @@ android {
 }
 
 dependencies {
+    // para sa supabase deoendencies
+    implementation("io.github.jakepurple13.supabase-kt:supabase-android:0.1.4")
+    implementation("at.favre.lib:bcrypt:0.9.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
