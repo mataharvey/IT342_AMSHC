@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Booking from './pages/Booking';
 import Doctor from './pages/Doctor';
-import HospitalCityCreator from './pages/HospitalCityCreator';
+import Clinics from './pages/Clinics';
 import BookingHistory from './pages/BookingHistory';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
@@ -11,6 +11,10 @@ import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Settings from './pages/Settings';
+import RegisterDoctor from './pages/RegisterDoctor';
+import Notifications from './pages/Notifications';
+import Messaging from './pages/Messaging';
 
 function App() {
   return (
@@ -22,6 +26,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/register-doctor" element={<RegisterDoctor />} />
 
         {/* Protected Routes - TopNav only appears inside these */}
         <Route
@@ -49,10 +54,10 @@ function App() {
           }
         />
         <Route
-          path="/hospital-city-creator"
+          path="/clinics"
           element={
             <PrivateRoute>
-              <HospitalCityCreator />
+              <Clinics />
             </PrivateRoute>
           }
         />
@@ -64,6 +69,30 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <Settings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <PrivateRoute>
+              <Notifications />
+            </PrivateRoute>
+          }
+        />
+        <Route
+  path="/messages"
+  element={
+    <PrivateRoute>
+      <Messaging />
+    </PrivateRoute>
+  }
+/>
       </Routes>
     </Router>
   );

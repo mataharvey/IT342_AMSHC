@@ -27,4 +27,8 @@ public class AppUser {
 @Column(name = "reset_code")
 private String resetCode;
 
+@Column(name = "profile_picture_url")
+private String profilePictureUrl;
+
+
 }

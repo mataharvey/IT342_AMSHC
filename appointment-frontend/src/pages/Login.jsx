@@ -13,30 +13,37 @@ const Login = () => {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+  
     try {
       const response = await axios.post("http://localhost:8080/api/auth/login", {
         email,
         password,
-      })
-
+      });
+  
       if (response.data.token) {
-        localStorage.setItem("token", response.data.token)
-        console.log("✅ Login successful")
-        navigate("/dashboard")
+        // ✅ Store session and profile info
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("fullName", response.data.fullName || ""); // fallback if missing
+        localStorage.setItem("avatarUrl", response.data.avatarUrl || ""); // fallback if missing
+  
+        console.log("✅ Login successful. User ID:", response.data.userId);
+        navigate("/dashboard");
       } else {
-        setError("❌ Invalid response from server.")
+        setError("❌ Invalid response from server.");
       }
     } catch (err) {
-      console.error("Login failed:", err)
-      setError("❌ Invalid email or password.")
+      console.error("Login failed:", err);
+      setError("❌ Invalid email or password.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-blue-900 to-blue-700 relative px-4">
@@ -165,6 +172,8 @@ const Login = () => {
       </div>
     </div>
   )
+
+  
 }
 
 export default Login

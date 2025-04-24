@@ -35,6 +35,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/clinics/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/doctors/**").permitAll()
                         .requestMatchers("/api/appointments/book").permitAll()
+                        .requestMatchers("/api/auth/**", "/uploads/**").permitAll() // ✅ allow /uploads/**
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register-doctor").permitAll()
 
                         // ✅ Appointment role-based access
                         .requestMatchers("/api/appointments/patient/**").hasAnyRole("PATIENT", "ADMIN")
@@ -49,6 +51,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/clinics/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/clinics/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/clinics/**").hasRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/notifications/mark-read/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/notifications/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/notifications/user/**").hasAnyRole("PATIENT", "DOCTOR", "ADMIN")
+
 
 
 

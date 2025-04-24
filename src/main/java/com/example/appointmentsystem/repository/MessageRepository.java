@@ -19,5 +19,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findUnreadByReceiverAndSender(Long receiverId, Long senderId);
 
     void deleteBySenderIdOrReceiverId(Long senderId, Long receiverId);
+    
 
 }

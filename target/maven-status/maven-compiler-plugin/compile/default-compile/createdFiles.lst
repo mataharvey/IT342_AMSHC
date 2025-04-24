@@ -6,6 +6,7 @@ com\example\appointmentsystem\dto\DoctorRegisterRequest.class
 com\example\appointmentsystem\service\MessageService.class
 com\example\appointmentsystem\dto\ResetPasswordRequest.class
 com\example\appointmentsystem\model\Message.class
+com\example\appointmentsystem\dto\UpdateProfileRequest.class
 com\example\appointmentsystem\service\DoctorService.class
 com\example\appointmentsystem\dto\AppointmentRequestDTO.class
 com\example\appointmentsystem\model\NotificationType.class
@@ -47,6 +48,7 @@ com\example\appointmentsystem\config\SecurityConfig.class
 com\example\appointmentsystem\dto\ForgotPasswordRequest.class
 com\example\appointmentsystem\service\AppointmentService.class
 com\example\appointmentsystem\service\NotificationService.class
+com\example\appointmentsystem\dto\ChangePasswordRequest.class
 com\example\appointmentsystem\controller\NotificationController.class
 com\example\appointmentsystem\security\UserDetailsServiceImpl.class
 com\example\appointmentsystem\dto\LoginResponse.class
