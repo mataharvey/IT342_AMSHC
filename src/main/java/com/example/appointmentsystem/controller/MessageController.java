@@ -2,6 +2,7 @@ package com.example.appointmentsystem.controller;
 
 import com.example.appointmentsystem.dto.MessageDTO;
 import com.example.appointmentsystem.dto.MessageRequestDTO;
+import com.example.appointmentsystem.model.AppUser;
 import com.example.appointmentsystem.model.Message;
 import com.example.appointmentsystem.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/messages")
@@ -61,6 +64,12 @@ public class MessageController {
         messageService.deleteMessage(messageId, userId);
         return ResponseEntity.ok("Message deleted successfully.");
     }
+
+    @GetMapping("/chat-patients")
+    public List<AppUser> getChatPatients(@RequestParam Long doctorId) {
+    return messageService.findChatPartners(doctorId);
+}
+
 
 
 }

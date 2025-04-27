@@ -18,22 +18,24 @@ function TopNav() {
   useEffect(() => {
     if (!userId || !token) return;
 
-    // Fetch profile
-    axios.get(`http://localhost:8080/api/auth/profile/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => setProfile(res.data))
-    .catch(err => console.error("Failed to load profile", err));
+    const fetchProfileAndNotifications = async () => {
+      try {
+        const profileRes = await axios.get(`http://localhost:8080/api/auth/profile/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setProfile(profileRes.data);
 
-    // Fetch unread notification count
-    axios.get(`http://localhost:8080/api/notifications/user/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-    .then(res => {
-      const unread = res.data.filter(n => !n.read).length;
-      updateNotificationCount(unread);
-    })
-    .catch(err => console.error("Failed to load notifications", err));
+        const notifRes = await axios.get(`http://localhost:8080/api/notifications/user/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const unread = notifRes.data.filter(n => !n.read).length;
+        updateNotificationCount(unread);
+      } catch (error) {
+        console.error('Error fetching profile or notifications', error);
+      }
+    };
+
+    fetchProfileAndNotifications(); // ✅ Call once only
   }, [userId, token, updateNotificationCount]);
 
   const handleLogout = () => {
@@ -81,10 +83,9 @@ function TopNav() {
         </Link>
 
         <Link to="/messages" className="flex flex-col items-center hover:text-yellow-300">
-  <FaCommentDots size={30} />
-  <span className="text-sm">Messages</span>
-</Link>
-
+          <FaCommentDots size={30} />
+          <span className="text-sm">Messages</span>
+        </Link>
 
         <div className="flex items-center space-x-2">
           <img

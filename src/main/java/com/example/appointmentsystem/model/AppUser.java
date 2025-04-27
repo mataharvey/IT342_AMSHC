@@ -30,5 +30,6 @@ private String resetCode;
 @Column(name = "profile_picture_url")
 private String profilePictureUrl;
 
+private String avatarUrl;
 
 }

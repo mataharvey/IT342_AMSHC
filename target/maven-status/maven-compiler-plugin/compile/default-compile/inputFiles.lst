@@ -9,6 +9,7 @@ C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appo
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\service\DoctorService.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\AppointmentSystemApplication.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\MessageRequestDTO.java
+C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\controller\PatientController.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\model\Message.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\repository\MessageRepository.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\security\UserDetailsServiceImpl.java
@@ -34,6 +35,7 @@ C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appo
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\service\EmailService.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\repository\AppointmentRepository.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\config\AppConfig.java
+C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\AppointmentResponseDTO.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\controller\AppointmentController.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\config\SecurityConfig.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\security\JwtUtil.java

@@ -33,10 +33,12 @@ public class SecurityConfig {
                         // ✅ Public endpoints
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/clinics/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/doctors").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/doctors/**").permitAll()
                         .requestMatchers("/api/appointments/book").permitAll()
                         .requestMatchers("/api/auth/**", "/uploads/**").permitAll() // ✅ allow /uploads/**
                         .requestMatchers(HttpMethod.POST, "/api/auth/register-doctor").permitAll()
+                        .requestMatchers("/api/messages/conversation").authenticated()  // ✅ Required
 
                         // ✅ Appointment role-based access
                         .requestMatchers("/api/appointments/patient/**").hasAnyRole("PATIENT", "ADMIN")

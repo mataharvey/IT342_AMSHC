@@ -30,6 +30,7 @@ com\example\appointmentsystem\controller\AuthStatusController.class
 com\example\appointmentsystem\dto\MessageRequestDTO.class
 com\example\appointmentsystem\dto\RegisterRequest.class
 com\example\appointmentsystem\config\WebConfig.class
+com\example\appointmentsystem\dto\AppointmentResponseDTO.class
 com\example\appointmentsystem\controller\MessageController.class
 com\example\appointmentsystem\dto\LoginRequest.class
 com\example\appointmentsystem\model\Doctor.class
@@ -52,5 +53,6 @@ com\example\appointmentsystem\dto\ChangePasswordRequest.class
 com\example\appointmentsystem\controller\NotificationController.class
 com\example\appointmentsystem\security\UserDetailsServiceImpl.class
 com\example\appointmentsystem\dto\LoginResponse.class
+com\example\appointmentsystem\controller\PatientController.class
 com\example\appointmentsystem\security\JwtUtil.class
 com\example\appointmentsystem\repository\DoctorRepository.class

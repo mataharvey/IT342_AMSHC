@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -34,6 +35,8 @@ public class AuthController {
     private final AppUserRepository appUserRepository;
     private final ClinicRepository clinicRepository;
     private final DoctorRepository doctorRepository;
+    private final AppUserRepository userRepository;
+
 
     @PostMapping("/register")
     public AuthResponse register(@RequestBody AppUser appUser) {
@@ -58,27 +61,41 @@ public class AuthController {
     }
 
     @PostMapping("/register-doctor")
-    public ResponseEntity<String> registerDoctor(@RequestBody DoctorRegisterRequest request) {
-        AppUser user = new AppUser();
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setFullName(request.getFullName());
-        user.setRole("DOCTOR");
-        appUserRepository.save(user);
-
-        Clinic clinic = clinicRepository.findById(request.getClinicId())
-                .orElseThrow(() -> new RuntimeException("Clinic not found"));
-
-        Doctor doctor = new Doctor();
-        doctor.setName(request.getFullName());
-        doctor.setGender(request.getGender());
-        doctor.setSpecialization(request.getSpecialization());
-        doctor.setYearsOfExperience(request.getYearsOfExperience());
-        doctor.setClinic(clinic);
-        doctorRepository.save(doctor);
-
-        return ResponseEntity.ok("Doctor registered successfully.");
+public ResponseEntity<String> registerDoctor(@RequestBody DoctorRegisterRequest dto) {
+    if (userRepository.existsByEmail(dto.getEmail())) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already in use");
     }
+
+    // 1. Create AppUser for doctor
+    AppUser user = AppUser.builder()
+            .email(dto.getEmail())
+            .password(passwordEncoder.encode(dto.getPassword()))
+            .fullName(dto.getFullName())
+            .role("DOCTOR")
+            .build();
+
+    AppUser savedUser = userRepository.save(user);
+
+    // 2. Fetch clinic
+    Clinic clinic = clinicRepository.findById(dto.getClinicId())
+            .orElseThrow(() -> new RuntimeException("Clinic not found"));
+
+    // 3. Create and link Doctor
+    Doctor doctor = Doctor.builder()
+            .name(dto.getFullName())
+            .gender(dto.getGender())
+            .specialization(dto.getSpecialization())
+            .yearsOfExperience(dto.getYearsOfExperience())
+            .clinic(clinic)
+            .user(savedUser) // ✅ Link the AppUser to Doctor here
+            .build();
+
+    doctorRepository.save(doctor);
+
+    return ResponseEntity.ok("Doctor registered successfully");
+}
+
+
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
