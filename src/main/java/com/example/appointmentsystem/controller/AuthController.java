@@ -148,4 +148,17 @@ public ResponseEntity<String> registerDoctor(@RequestBody DoctorRegisterRequest 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Avatar upload failed");
         }
     }
+
+    @GetMapping("/user/me")
+public ResponseEntity<AppUser> getCurrentUser(Authentication authentication) {
+    if (authentication == null || !authentication.isAuthenticated()) {
+        return ResponseEntity.status(401).build();
+    }
+    
+    CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+    AppUser user = userDetails.getUser();
+    
+    return ResponseEntity.ok(user);
+}
+
 }

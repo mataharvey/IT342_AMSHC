@@ -2,7 +2,7 @@ package com.example.appointmentsystem.controller;
 
 import com.example.appointmentsystem.dto.MessageDTO;
 import com.example.appointmentsystem.dto.MessageRequestDTO;
-import com.example.appointmentsystem.model.AppUser;
+import com.example.appointmentsystem.dto.UserSimpleDTO;
 import com.example.appointmentsystem.model.Message;
 import com.example.appointmentsystem.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -43,7 +43,6 @@ public class MessageController {
                         ? Sort.by(sortBy).descending()
                         : Sort.by(sortBy).ascending()
         );
-
         return ResponseEntity.ok(messageService.getConversation(user1, user2, pageable));
     }
 
@@ -65,11 +64,9 @@ public class MessageController {
         return ResponseEntity.ok("Message deleted successfully.");
     }
 
-    @GetMapping("/chat-patients")
-    public List<AppUser> getChatPatients(@RequestParam Long doctorId) {
-    return messageService.findChatPartners(doctorId);
-}
-
-
-
+    // 🛠️ New: Find chat partners with name + avatar
+    @GetMapping("/chat-partners/{userId}")
+    public ResponseEntity<List<UserSimpleDTO>> getChatPartners(@PathVariable Long userId) {
+        return ResponseEntity.ok(messageService.getChatPartners(userId));
+    }
 }

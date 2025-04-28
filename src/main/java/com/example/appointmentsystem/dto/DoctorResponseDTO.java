@@ -17,6 +17,5 @@ public class DoctorResponseDTO {
     private Long clinicId;
     private String clinicName;
     private String clinicAddress;
-    
-
+    private String avatarUrl;   // 🆕 Added
 }

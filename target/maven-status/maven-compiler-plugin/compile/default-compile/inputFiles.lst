@@ -3,6 +3,7 @@ C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appo
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\RegisterRequest.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\ForgotPasswordRequest.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\DoctorRequestDTO.java
+C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\controller\UserController.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\DoctorRegisterRequest.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\model\AppUser.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\model\Doctor.java
@@ -40,6 +41,7 @@ C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appo
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\config\SecurityConfig.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\security\JwtUtil.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\service\MessageService.java
+C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\UserSimpleDTO.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\LoginRequest.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\dto\AppointmentRequestDTO.java
 C:\Users\iamhe\Documents\IT 342\AMSHC\IT342_AMSHC\src\main\java\com\example\appointmentsystem\security\CustomUserDetails.java

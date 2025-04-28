@@ -87,16 +87,18 @@ public class DoctorService {
     private DoctorResponseDTO convertToDTO(Doctor doctor) {
         return new DoctorResponseDTO(
             doctor.getId(),
-            doctor.getUser() != null ? doctor.getUser().getId() : null, // ✅ FIXED
+            doctor.getUser() != null ? doctor.getUser().getId() : null,
             doctor.getName(),
             doctor.getGender(),
             doctor.getSpecialization(),
             doctor.getYearsOfExperience(),
             doctor.getClinic().getId(),
             doctor.getClinic().getName(),
-            doctor.getClinic().getAddress()
+            doctor.getClinic().getAddress(),
+            doctor.getUser() != null ? doctor.getUser().getAvatarUrl() : null // 🆕 Added here
         );
     }
+    
     
     
 }
